@@ -1,0 +1,30 @@
+PGP
+===
+
+This is a very simple plugin for a simple algorithm that's often vastly over-complexified.  It takes
+only a few relatively simple steps, and you too can be using strong encryption just like the pros
+at PGP!  
+
+This plugin requires openssl to be installed.
+
+Simply generate a key pair with the rake task (you may want to alter some of the params in the task),
+and then use those key files in your program.  The relative size of the encrypted string will be 
+proportional to the bit length of your keys.  
+
+Enjoy!
+
+~Duke
+
+Example
+=======
+
+`rake pgp:generate_key_pair`
+
+
+p = PGP.new('pass')
+p.public_key # just to see it
+
+p.encrypt('A very secret string')
+
+
+Copyright (c) 2009 Duke Jones, PGP Corporation, released under the MIT license

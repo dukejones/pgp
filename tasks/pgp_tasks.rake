@@ -1,8 +1,10 @@
 
 namespace :pgp do
+  KEY_DIR = 'vendor/plugins/pgp/keys'
+
   @bits = 1024
-  @public_file_name = "vendor/plugins/pgp/lib/public#{@bits}.pem"
-  @private_file_name = "vendor/plugins/pgp/lib/private#{@bits}.pem"
+  @public_file_name = KEY_DIR + "/public#{@bits}.pem"
+  @private_file_name = KEY_DIR + "/private#{@bits}.pem"
 
   task :generate_key_pair => [:generate_private_key, :extract_public_key]
   

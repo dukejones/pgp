@@ -2,12 +2,12 @@ require 'openssl'
 require 'base64'  
 
 class PGP
-  DEFAULT_KEY_DIR = RAILS_ROOT + '/vendor/plugins/pgp/lib'
+  KEY_DIR = RAILS_ROOT + '/vendor/plugins/pgp/keys'
   
-  def initialize(password, public_key_file=DEFAULT_KEY_DIR+'/public1024.pem', private_key_file=DEFAULT_KEY_DIR+'/private1024.pem')
-    @public_key_file = public_key_file
-    @private_key_file = private_key_file
+  def initialize(password, public_filename='public1024.pem', private_filename='private1024.pem')
     @password = password
+    @public_key_file = KEY_DIR + '/' + public_filename
+    @private_key_file = KEY_DIR + '/' + private_filename
   end
   
   def encrypt_url(string)
@@ -15,7 +15,7 @@ class PGP
   end
 
   def decrypt_url(string)
-    # rails automatically CGI::unescapes incoming params
+    # rails automatically CGI::unescapes incoming URL params
     decrypt(string)
   end
   
@@ -28,15 +28,15 @@ class PGP
   end
 
   def public_key
-    @public_key ||= load_key(public_key_file)
+    @public_key ||= load_key(@public_key_file)
   end
   
 private  
   def private_key
-    @private_key ||= load_key(private_key_file)
+    @private_key ||= load_key(@private_key_file)
   end
 
   def load_key(key_file)
-    OpenSSL::PKey::RSA.new(File.read(key_file), password)    
+    OpenSSL::PKey::RSA.new(File.read(key_file), @password)
   end
 end

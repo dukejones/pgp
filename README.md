@@ -44,15 +44,16 @@ Enjoy!
 ~Duke
 
 Example
-=======
+-------
 
+```ruby
 `rake pgp:generate_key_pair`
-
 
 p = PGP.new('pass')
 p.public_key # just to see it
 
 p.encrypt('A very secret string')
+```
 
 
 Copyright (c) 2009 Duke Jones, PGP Corporation, released under the MIT license
